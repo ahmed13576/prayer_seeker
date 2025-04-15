@@ -3,13 +3,13 @@
 import { useState } from "react";
 import { InferPrayerTimesInput, inferPrayerTimes } from "@/ai/flows/infer-prayer-times";
 import { identifyCouncil, IdentifyCouncilInput } from "@/ai/flows/identify-council";
-import { suggestSchoolOfThought, SuggestSchoolOfThoughtInput } from "@/ai/flows/suggest-school-of-thought";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const PrayerTimes = () => {
   const [azanTime, setAzanTime] = useState("");
@@ -18,8 +18,13 @@ const PrayerTimes = () => {
   const [schoolOfThought, setSchoolOfThought] = useState<InferPrayerTimesInput["schoolOfThought"]>("sunni");
   const [prayerTimes, setPrayerTimes] = useState<{ [key: string]: string | undefined }>({});
   const [council, setCouncil] = useState<string>("");
-	const [suggestedSchoolOfThought, setSuggestedSchoolOfThought] = useState<string>("");
   const { toast } = useToast();
+  const router = useRouter();
+
+  const handleConfirm = () => {
+    router.push("/weekly-schedule");
+  };
+
 
   const handlePrayerTimeInference = async () => {
     if (!azanTime || !namazType || !location || !schoolOfThought) {
@@ -47,12 +52,6 @@ const PrayerTimes = () => {
       });
 
       setCouncil(councilResult.council);
-
-			const schoolOfThoughtResult = await suggestSchoolOfThought({
-				azanTime,
-				location,
-			} as SuggestSchoolOfThoughtInput);
-			setSuggestedSchoolOfThought(schoolOfThoughtResult.schoolOfThought);
 
       toast({
         title: "Success",
@@ -142,18 +141,15 @@ const PrayerTimes = () => {
                 <span>{time}</span>
               </div>
             ))}
-						{suggestedSchoolOfThought && (
-							<div className="flex justify-between items-center py-2">
-								<span className="font-medium">Suggested School of Thought:</span>
-								<span>{suggestedSchoolOfThought}</span>
-							</div>
-						)}
             {council && (
               <div className="flex justify-between items-center py-2">
                 <span className="font-medium">Council:</span>
                 <span>{council}</span>
               </div>
             )}
+            <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/80" onClick={handleConfirm}>
+              Confirm
+            </Button>
           </CardContent>
         </Card>
       )}
