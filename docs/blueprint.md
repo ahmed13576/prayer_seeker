@@ -1,6 +1,6 @@
-# **App Name**: Prayer Seeker
+#Prayer Seeker
 
-## Core Features:
+## Features I wish to add:
 
 - Azan Time Input: Input field for the most recent azan time and drop-down box for type of namaz ie fajr, duhur, asr, maghrib, isha and name of the place.
 - Prayer Time Inference: Infers the next prayer times based on the given azan time, type of namaz, location, and school of thought using an AI model.
@@ -16,7 +16,3 @@
 - Clean and intuitive layout for easy navigation.
 - Use clear and recognizable icons for prayer times and settings.
 - Subtle animations for transitions and feedback.
-
-## Original User Request:
-create an android app that helps a muslim person found out local prayer time simply by providing the time for the most recent azan he has heard that day in that place. Based on that time of azan, name of the namaz, name of the place and does the person follow shia or sunni, the app should be able to infer on its own what would be the next prayer times and remember them, infer which islamic school of thought matches with the given azan time and according to which council would have the intitial azan time had been decided. The app could also ask for further azan times samples from the user and adjust the next prayer times accordingly.
-  
